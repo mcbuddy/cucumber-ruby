@@ -134,6 +134,10 @@ module Cucumber
         classname = @current_feature_data[:feature].name
         name = scenario_designation
 
+        @current_feature_data[:builder].tag!('properties') do
+          @current_feature_data[:builder].property(name: basename(feature_file).to_s, value: "")
+        end
+
         @current_feature_data[:builder].testcase(classname: classname, name: name, time: format('%<duration>.6f', duration: duration)) do
           if !result.passed? && result.ok?(@config.strict)
             @current_feature_data[:builder].skipped
